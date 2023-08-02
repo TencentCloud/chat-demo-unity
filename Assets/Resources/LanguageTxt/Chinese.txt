@@ -1,0 +1,2 @@
+Phone:手机号
+Captcha:验证码
