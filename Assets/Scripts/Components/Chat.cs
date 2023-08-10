@@ -363,16 +363,29 @@ namespace Com.Tencent.Imsdk.Unity.UIKit
         switch(msg.message_elem_array[0].group_tips_elem_tip_type){
           case TIMGroupTipType.kTIMGroupTip_Invite:
             message = string.Join(" ",(object[])msg.message_elem_array[0].group_tips_elem_user_array.ToArray());
-            message += " 加入群聊";
-            
+            if(Core.currentLanguage == Language.Chinese){
+              message += " 加入群聊";
+            }else{
+              message += " joined group chat";
+            }
           break;
           case TIMGroupTipType.kTIMGroupTip_Kick:
             message = string.Join(" ",(object[])msg.message_elem_array[0].group_tips_elem_user_array.ToArray());
-            message += " 被踢出群聊";
+            if(Core.currentLanguage == Language.Chinese){
+              message += " 被踢出群聊";
+            }else{
+              message += " kicked out from group chat";
+            }
+            
           break;
           case TIMGroupTipType.kTIMGroupTip_Quit:
             message = string.Join(" ",(object[])msg.message_elem_array[0].group_tips_elem_user_array.ToArray());
-            message += " 退出群聊";
+            if(Core.currentLanguage == Language.Chinese){
+              message += " 退出群聊";
+            }else{
+              message += " quited group chat";
+            }
+            
           break;
           case TIMGroupTipType.kTIMGroupTip_GroupInfoChange:
           break;
@@ -465,7 +478,7 @@ namespace Com.Tencent.Imsdk.Unity.UIKit
           GameObject obj = Instantiate(groupTipsItem, parent.transform);
           MsgItem item = obj.GetComponentInChildren<MsgItem>();
 
-          item.setData("你可以在这里开始聊天","groupTips",null,null,null);
+          item.setData("you can start your chat here","groupTips",null,null,null);
         }
       }
     }

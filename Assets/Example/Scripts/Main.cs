@@ -27,7 +27,7 @@ namespace Com.Tencent.IM.Unity.UIKit.Example
       // StartCoroutine(DownTexture(Config.headerImgUrl, headerImg));
       // 设置表情包信息
       Core.SetStickerPackageList(Config.stickers);
-      
+      ChangeSystemLanguage();
       string userId = PlayerPrefs.GetString("userId");
       string sdkUserSig = PlayerPrefs.GetString("sdkUserSig");
 
@@ -37,7 +37,6 @@ namespace Com.Tencent.IM.Unity.UIKit.Example
         Core.Init();
         Core.Login(HandleAfterLogin);
       }
-
 
       getCaptchaButton.onClick.AddListener(GetCaptcha);
       loginButton.onClick.AddListener(Login);
@@ -49,6 +48,19 @@ namespace Com.Tencent.IM.Unity.UIKit.Example
       if (!string.IsNullOrEmpty(storedPhone))
       {
         phoneNumber.text = storedPhone;
+      }
+    }
+
+    private void ChangeSystemLanguage(){
+      string language = GetSystemLanguageWrapper.GetSystemLanguage();
+      Debug.Log("system language: "+language);
+      switch (language){
+        case "Chinese":
+          LanguageDataManager.SetCurrentLanguageValue(Language.Chinese);
+          break;
+        default:
+          LanguageDataManager.SetCurrentLanguageValue(Language.English);
+          break;
       }
     }
 

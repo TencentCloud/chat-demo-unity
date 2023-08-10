@@ -46,7 +46,20 @@ namespace Com.Tencent.Imsdk.Unity.UIKit {
       }));
     }
     public void setTeer(string teer){
+      if(Core.currentLanguage == Language.Chinese){
         m_TeerText.text = teer;
+      } else {
+        if(teer == "钻石"){
+          m_TeerText.text = "Diamond";
+        }else if(teer == "白银"){
+          m_TeerText.text = "Silver";
+        }else if(teer == "黄金"){
+          m_TeerText.text = "Gold";
+        }else if(teer == "铂金"){
+          m_TeerText.text = "Platinum";
+        }
+      }
+        
         Sprite sprite = (Sprite)Resources.Load(teer,typeof(Sprite));
         if(teer == "王者" || teer == "钻石"){
           m_TeerAvatar.rectTransform.sizeDelta = new Vector2(394.93f,95.93f);

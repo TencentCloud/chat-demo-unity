@@ -171,52 +171,87 @@ namespace Com.Tencent.IM.Unity.UIKit
       var ftime = DateTimeOffset.FromUnixTimeSeconds((long)timeStamp);
       var offset = TimeZoneInfo.Local.BaseUtcOffset;
       ftime = ftime.Add(offset);
-      var preFix = ftime.Hour >= 12 ? "下午" : "上午";
+      var preFix = "";
+      if(Core.currentLanguage == Language.Chinese){
+        preFix = ftime.Hour >= 12 ? "下午" : "上午";
+      }else{
+        preFix = ftime.Hour >= 12 ? "Afternoon" : "Morning";
+      }
+      
       var timeStr = ftime.ToString("hh:mm");
       // 一年外 年月日 + 上/下午 + 时间 (12小时制)
+      // a year before: year-month-day + Morning/Afternoon + time
       if (nowTime.Year != ftime.Year)
       {
         return string.Format("{0:yyyy-MM-dd} {1} {2}", ftime, preFix, timeStr);
       }
       // 一年内一周外 月日 + 上/下午 + 时间 (12小时制）
+      // more than a week before: month-day+Morning/Afternoon + time
       if (ftime < nowTime.Subtract(new TimeSpan(6, 0, 0, 0)))
       {
         return string.Format("{0:MM-dd} {1} {2}", ftime, preFix, timeStr);
       }
       // 一周内一天外 星期 + 上/下午 + 时间 (12小时制）
+      // a day before: week+Morning/Afternoon + time
       if (ftime < nowTime.Subtract(new TimeSpan(1, 0, 0, 0)))
       {
         return string.Format("{0} {1} {2}", GetWeekday(ftime.DayOfWeek), preFix, timeStr);
       }
       // 昨日 昨天 + 上/下午 + 时间 (12小时制)
+      // yesterday : yesterday +Morning/Afternoon + time
       if (nowTime.Day != ftime.Day)
       {
         string option2 = string.Format("{0} {1}", preFix, timeStr);
-        return string.Format("昨天 {0}", option2);
+        if (Core.currentLanguage == Language.Chinese){
+          return string.Format("昨天 {0}", option2);
+        }
+        return string.Format("Yesterday {0}", option2);
       }
       // 同年月日 上/下午 + 时间 (12小时制)
+      // today: Morning/Afternoon + time
       return string.Format("{0} {1}", preFix, timeStr);
     }
 
     public static string GetWeekday(DayOfWeek dayOfWeek)
     {
-      switch (dayOfWeek)
-      {
-        case DayOfWeek.Monday:
-          return "星期一";
-        case DayOfWeek.Tuesday:
-          return "星期二";
-        case DayOfWeek.Wednesday:
-          return "星期三";
-        case DayOfWeek.Thursday:
-          return "星期四";
-        case DayOfWeek.Friday:
-          return "星期五";
-        case DayOfWeek.Saturday:
-          return "星期六";
-        default:
-          return "星期天";
+      if(Core.currentLanguage == Language.Chinese){
+        switch (dayOfWeek)
+        {
+          case DayOfWeek.Monday:
+            return "星期一";
+          case DayOfWeek.Tuesday:
+            return "星期二";
+          case DayOfWeek.Wednesday:
+            return "星期三";
+          case DayOfWeek.Thursday:
+            return "星期四";
+          case DayOfWeek.Friday:
+            return "星期五";
+          case DayOfWeek.Saturday:
+            return "星期六";
+          default:
+            return "星期天";
+        }
+      }else{
+        switch (dayOfWeek)
+        {
+          case DayOfWeek.Monday:
+            return "Monday";
+          case DayOfWeek.Tuesday:
+            return "Tuesday";
+          case DayOfWeek.Wednesday:
+            return "Wednesday";
+          case DayOfWeek.Thursday:
+            return "Thursday";
+          case DayOfWeek.Friday:
+            return "Friday";
+          case DayOfWeek.Saturday:
+            return "Saturday";
+          default:
+            return "Sunday";
+        }
       }
+      
     }
 
     public static string GetUserNameFromGroupMemberInfo(GroupMemberInfo groupMemberInfo)

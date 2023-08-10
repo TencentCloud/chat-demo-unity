@@ -15,6 +15,8 @@ namespace Com.Tencent.IM.Unity.UIKit
     public static string sdkappid { get; set; }
     public static string userid { get; set; }
     public static string usersig { get; set; }
+    // language package
+    public static Language currentLanguage{ get; set; }
     public static int currentStickerIndex { get; private set; } = 0;
     public static string currentConvID { get; private set; }
     public static string currentConvName {get; private set;}
@@ -40,6 +42,10 @@ namespace Com.Tencent.IM.Unity.UIKit
     public static OnChanged OnRecvNewMessage;
     public static OnChanged OnChannelChanged;
     public static Utils.Callback OnLogin;
+
+    public static void setCurrentLanguage(Language Language){
+      currentLanguage = Language;
+    }
     public static void SetCurrentConv(string convID, string convName,TIMConvType convType,string Teer = "")
     {
       currentConvName = convName;

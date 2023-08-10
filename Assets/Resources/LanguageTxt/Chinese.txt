@@ -1,2 +1,18 @@
 Phone:手机号
 Captcha:验证码
+GetCaptcha:获取验证码
+Login:登录
+Send:发送
+OpenChat:点击这里 开始聊天
+World:世界
+Channel:频道
+Group:组队
+Friend:好友
+EnterText:请点击输入
+SearchFriend:搜索好友
+Logout:登出
+Silver:白银
+Gold:黄金
+Platinum:铂金
+Diamond:钻石
+Calloutchat:唤出聊天

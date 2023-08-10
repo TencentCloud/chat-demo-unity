@@ -8,6 +8,7 @@ IM for Unity on iOS or Android.
 ![](https://qcloudimg.tencent-cloud.cn/raw/49726f02f6d943ff1d9f88c13fcf097c.png)
 
 [IM Unity UIKit & UIKit Demo 链接](https://github.com/TencentCloud/chat-demo-unity)
+[体验 Demo](https://cloud.tencent.com/document/product/269/36852)
 
 ## 环境要求
 |平台 | 版本|
@@ -24,11 +25,11 @@ IM for Unity on iOS or Android.
 >同一个腾讯云账号，最多可创建300个即时通信 IM 应用。若已有300个应用，您可以先 [停用并删除](https://intl.cloud.tencent.com/document/product/1047/34540) 无需使用的应用后再创建新的应用。**应用删除后，该 SDKAppID 对应的所有数据和服务不可恢复，请谨慎操作。**
 >
 2. 单击**创建新应用**，在**创建应用**对话框中输入您的应用名称，单击**确定**。
-![](https://main.qcloudimg.com/raw/15e61a874a0640d517eeb67e922a14bc.png)
+![](https://qcloudimg.tencent-cloud.cn/raw/575af1542a58aeb75eb560f38d12fbd1.png)
 3. 请保存 SDKAppID 信息。可在控制台总览页查看新建应用的状态、业务版本、SDKAppID、标签、创建时间以及到期时间。
-    ![](https://main.qcloudimg.com/raw/7954cc2882d050f68cd5d1df2ee776a6.png)
+    ![](https://qcloudimg.tencent-cloud.cn/raw/9dacc5ab4915ae45e4b3f29b77fadf8b.png)
 4. 单击创建后的应用，左侧导航栏单击**辅助工具**>**UserSig 生成&校验**，创建一个 UserID 及其对应的 UserSig，复制签名信息，后续登录使用。
-![](https://main.qcloudimg.com/raw/2286644d987d24caf565142ae30c4392.png)
+![](https://qcloudimg.tencent-cloud.cn/raw/488cfa074b5bca64217b98e35ccdc271.png)
 
 ## 如何将UIKit导入到项目中
 
@@ -89,10 +90,8 @@ public static void Init() {
 #### 使用 Conversation和Chat预制件
 
 您可将下列预制件放入您的场景中，修改相应样式和layout。
-<p align="center">
-      <img src="https://qcloudimg.tencent-cloud.cn/raw/4aef3fda8f145f82041b46d419aa5d8e.png" width="80%">
-    </p>
 
+![](https://qcloudimg.tencent-cloud.cn/raw/4aef3fda8f145f82041b46d419aa5d8e.png)
 
 #### 项目结构
 
@@ -220,10 +219,12 @@ TencentIMSDK.ProfileModifySelfUserProfile(new UserProfileItem{
     <p align="center">
       <img src="https://qcloudimg.tencent-cloud.cn/raw/ea516e9b19793282a49c81570d17c559.png">
     </p>
+    
 2. 更改图片的 `Texture Type` 为 `Sprite (2D and UI)`，并根据图片尺寸修改 `Pixels Per Unit`
     <p align="center">
       <img src="https://qcloudimg.tencent-cloud.cn/raw/d5cad0548b08be9413a7e3a92ed0c956.png">
     </p>
+
 3. 定义相应的表情包数据
    ```csharp
       // 生成表情包列表，StickerPackage 为一组表情包
@@ -250,10 +251,39 @@ TencentIMSDK.ProfileModifySelfUserProfile(new UserProfileItem{
 
       Core.SetStickerPackageList(Config.stickers);
    ```
+#### 语言包
+IM Unity UIKit Demo提供根据系统语言切换语言系统，现支持简体中文和英语。您可以按照需求增加语言或者修改里面的配置。
 
+1. 语言资料
+   语言资料放在 `Resources/LanguageTxt`里。现在包含`Chinese.txt(简体中文)`和`English.txt(英文)`。若需要其他语言，可以添加对应的txt文件。
+   该文件的结构如下：
+   ```json
+   //English.txt
+   Key:Value
+
+   //Chinese.txt
+   Key:值
+   ```
+   Key应与其他语言的Key一致，并与后续的enum一致
+   Value为Key对应的该语言的值
+   Key 和 Value之间使用冒号分隔开
+2. 设置语言
+   1. 设置语言和词条
+      若你添加了语言，添加相应的语言词汇txt文件后在 `LanguageDataManager.cs` 中的`Language`中添加新的语言，并在`LanguageTextName`中增加对应的Key。
+    2. 加载语言词条文件
+        ```csharp
+        private Dictionary<string,string> EnglishDictionary = new Dictionary<string,string>();
+        LoadLanguageTxt(Language.English);
+        ```
+    3. 组件设置（静态修改）
+      在需要设置的text组件中添加 `LanguageUIText(Script)` component，将需要显示的词的Key选中。改显示的Key对应LanguageTextName中的enum和词汇文件里的Key。
+      ![](https://qcloudimg.tencent-cloud.cn/raw/04b53ea5e49b957ea9c5c7346bfb6807.png)
+    4. 设置语言
+      若要设置语言，在软件开启时调用 `SetCurrentLanguageValue`。若要固定语言，可直接在 `LanguageDataManager.cs`对`currentLanguage`赋值（可当成默认语言）。该Demo根据系统语言判断并赋值。
+      若需要修改的组件不仅为静态组件，则简单的方法为将现在使用的语言保存到config中（在Demo中保存到了Core）在代码中判断显示。
 ## API 文档
 
-[Tencent Cloud IM Chat SDK 文档链接](https://github.com/TencentCloud/chat-demo-unity)
+[Tencent Cloud IM Chat SDK 文档链接](https://comm.qq.com/im/doc/unity/zh/api/readme.html)
 [Tencent Cloud IM Chat SDK 官网链接](https://cloud.tencent.com/document/product/269/54111)
 [Tencent Cloud IM Chat SDK 快速入门](https://cloud.tencent.com/document/product/269/54106)
 
@@ -363,5 +393,4 @@ using com.tencent.imsdk.unity;
 ```
 
 ## 交流与反馈
-
-如果您在接入使用过程中有任何疑问，可进入 [腾讯云即时通信IM 知聊](https://zhiliao.qq.com/)的 Unity平台发问。
+[点此进入IM社群]((https://zhiliao.qq.com/))，享有专业工程师的支持，解决您的难题

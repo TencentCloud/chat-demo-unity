@@ -1,23 +1,24 @@
 [简体中文](./README.md) ｜ [English](./README_EN.md)
 
-# IM Unity UIKit & UIKit Demo
-IM for Unity on iOS or Android.
+# IM(Chat) Unity UIKit & UIKit Demo
+Chat for Unity on iOS or Android.
 This Chat Unity UIKit & UIKit Demo is a game scene UI component library based on Tencent Cloud IM Chat SDK. It currently includes Conversation and Chat components with sending and receiving text messages, sending and receiving emoji messages, Custom emoticons and other functions. Introducing this UIKit in your Unity project can help you quickly build your chat system.
 For more information about Tencent Cloud Instant Messaging IM, please refer to [Tencent Cloud Chat](https://cloud.tencent.com/product/im)
 
 ![](https://qcloudimg.tencent-cloud.cn/raw/49726f02f6d943ff1d9f88c13fcf097c.png)
 
-[IM Unity UIKit & UIKit Demo github](https://github.com/TencentCloud/chat-demo-unity)
+[Chat Unity UIKit & UIKit Demo github](https://github.com/TencentCloud/chat-demo-unity)
+[Chat Demo](https://www.tencentcloud.com/document/product/1047/34279)
 
-## 环境要求
-|平台 | 版本|
+## Environmental requirements
+|Platform | version|
 |----|----|
 |Unity | 2019.4.15f1 and above|
 |Android | Android Studio 3.5 and above, App requires Android 4.1 and above|
 |iOS | Xcode 11.0 and above，Please ensure that your project has a valid developer signature certificate.|
 
 
-## 前提条件
+## Perquisites
 [Signed up](https://www.tencentcloud.com/document/product/378/17985?from=unity) for a Tencent Cloud account and completed [identity verification](https://www.tencentcloud.com/document/product/378/3629?from=unity).
 1. Created a chat application as instructed in [Creating and Upgrading an Application](https://www.tencentcloud.com/document/product/1047/34577?from=unity) and recorded the SDKAppID.
 >The same Tencent Cloud account can create up to 300 instant messaging IM applications. If there are already 300 applications, you can [deactivate and delete](https://www.tencentcloud.com/document/product/1047/34540?lang=en&pg=) the unused applications before creating new ones . **After the application is deleted, all data and services corresponding to the SDKAppID cannot be recovered, please operate with caution.*
@@ -69,6 +70,7 @@ public static void Login() {
   TIMResult res = TencentIMSDK.Login(userid, user_sig, (int code, string desc, string json_param, string user_data)=>{
     // callback after login
   });
+}
 ```
 
 ##### Method 2: inside the component
@@ -114,7 +116,7 @@ The following components can be used in combination (refer to the Chat page of S
     </p>
 
 
--ConversationPanel
+- ConversationPanel
    conversation list. Now it mainly displays the single-chat sessions of friends. The corresponding code is in `Script/Components/Concersation.cs`. Styles for each conversation are in `ConversationItem.prefabs`.
    - conversation list area `FriendPanel`
      - Search area `SearchPanel`
@@ -125,9 +127,9 @@ The following components can be used in combination (refer to the Chat page of S
 
 - ChannelPanel
      The channel list consists of 4 channel buttons, namely `World`, `Channel`, `Team`, `Friends`. The first three channels are group chat channels, and the friend channel is a single chat channel and will display a list of single chat sessions. Click events and styles for channel buttons are in `Script/Components/Chat.cs`.
--AvatarPanel
+- AvatarPanel
    The avatar style in a conversation (ConversationItem), a single chat record (messageItem, etc.). Contains avatars and segment avatars.
--ConversationItem
+- ConversationItem
    The session style of the session list, including the avatar (AvatarPanel), session name and rank.
 - MessageItem, MessageItemSelf
      Text message content. Separate text messages for others and text messages for yourself.
@@ -147,7 +149,7 @@ The following components can be used in combination (refer to the Chat page of S
      They are emoticons and emoticons in the shortcut menu respectively.
 
 
-## ## How to start the demo project
+## How to start the demo project
 
 ### Initialize login
 Pass the SDKAppID, UserSig, and UserID into the component through configuration to initialize and log in the IM.
@@ -159,7 +161,7 @@ public static void Init() {
   Core.SetConfig(sdkappid, userId, sdkUserSig);
   Core.Init();
   Core.Login();
-  // 可传递函数
+  // you can pass function
   // Core.Login(HandleAfterLogin);
 }
 ```
@@ -182,14 +184,14 @@ Enter `Assets/Example/Scripts/Config/Config.cs`, fill in the group ID of the cre
 And call `joinGroup` after login to enter the corresponding group after login and send messages in the group.
 
 ### Send a message
-If you have added a group to the channel, you can send group chat messages through the world, channel, and team channel.
-You can also click on a single chat session in the friend channel to send a single chat message.
+If you have added a group to the channel, you can send group chat messages through the World, Channel, and team channel.
+You can also click on a c2c conversation in the friend channel to send a c2c chat message.
 
 
 ## Modify emoticons and Rank information
 
 #### Rank
-Now each user rank is randomly generated, if you need to use rank information, you can set it in the user's custom field.
+In this demo, each user's rank is randomly generated, if you need to use rank information, you can set it in the user's custom field.
 ```csharp
 UserProfileCustemStringInfo teer = new UserProfileCustemStringInfo{
     user_profile_custom_string_info_key:"段位",
@@ -211,9 +213,9 @@ And display the corresponding rank icon according to the rank name.
        1. Obtain the segment information in the message sender's information in `RenderMessageForScroll` of `Chat.cs` (if you need to modify other display content, you can also get it from here)
        2. Modify the displayed style and other details in `MsgItem.cs`
 
-#### Emoticons
-Emoticons are displayed in `OverlayPanel` in `Chat.cs` using `StickerPanel`. You can import your own emoticons to use. (You need to import your own emoticons in advance)
-1. Import the emoticons used in the `Assets/Resources` folder
+#### Emojis
+Emojis are displayed in `OverlayPanel` in `Chat.cs` using `StickerPanel`. You can import your own emoji to use. (You need to import your own emojis in advance)
+1. Import the emojis used in the `Assets/Resources` folder
     <p align="center">
       <img src="https://qcloudimg.tencent-cloud.cn/raw/ea516e9b19793282a49c81570d17c559.png">
     </p>
@@ -221,9 +223,9 @@ Emoticons are displayed in `OverlayPanel` in `Chat.cs` using `StickerPanel`. You
     <p align="center">
       <img src="https://qcloudimg.tencent-cloud.cn/raw/d5cad0548b08be9413a7e3a92ed0c956.png">
     </p>
-3. Define the corresponding emoticon package data
+3. Define the corresponding emoji package data
    ```csharp
-      // Generate a list of emoticons, StickerPackage is a set of emoticons
+      // Generate a list of emojis, StickerPackage is a set of emojis
       List<StickerPackage> stickers = new List<StickerPackage> {
       new StickerPackage {
         name = "4350",
@@ -233,7 +235,7 @@ Emoticons are displayed in `OverlayPanel` in `Chat.cs` using `StickerPanel`. You
           index = 0,
         },
         stickerList = new List<StickerItem> {
-          new StickerItem { // emoticon package data
+          new StickerItem { // emoji package data
           name = "menu@2x",
           index = 0 
         },
@@ -248,9 +250,40 @@ Emoticons are displayed in `OverlayPanel` in `Chat.cs` using `StickerPanel`. You
       Core.SetStickerPackageList(Config.stickers);
    ```
 
-## API 文档
+#### Language Package
+IM Unity UIKit Demo provides a language switching system based on the system language, and supports Simplified Chinese and English. You can add languages or modify the configuration inside according to your needs.
 
-[Tencent Cloud IM Chat SDK document](https://github.com/TencentCloud/chat-demo-unity)
+1. Language files
+    Language data is placed in `Resources/LanguageTxt`. Now contains `Chinese.txt(Simplified Chinese)` and `English.txt(English)` for simplified Chinese and English. If you need other languages, you can add the corresponding txt file.
+    The structure of the file is as follows:
+    ```json
+    //English.txt
+    Key: Value
+
+    //Chinese.txt
+    Key: value
+    ```
+    Key should be consistent with the Key of other languages, and consistent with subsequent enum
+    Value is the value of the language corresponding to Key
+    Use a colon to separate Key and Value
+2. Set language
+    1. Set language and entry
+       If you have added a language, add the corresponding language vocabulary txt file and add a new language in `Language` in `LanguageDataManager.cs`, and add the corresponding Key in `LanguageTextName`.
+     2. Load the language files
+         ```csharp
+         private Dictionary<string,string> EnglishDictionary = new Dictionary<string,string>();
+         LoadLanguageTxt(Language. English);
+         ```
+     3. Component settings (static modification)
+       Add the `LanguageUIText(Script)` component to the text component that needs to be set, and select the Key of the word to be displayed. The displayed Key corresponds to the enum in LanguageTextName and the Key in the vocabulary file.
+       ![](https://qcloudimg.tencent-cloud.cn/raw/04b53ea5e49b957ea9c5c7346bfb6807.png)
+     4. Set language
+       To set the language, call `SetCurrentLanguageValue` when the software starts. If you want to fix the language, you can directly assign a value to `currentLanguage` in `LanguageDataManager.cs` (it can be used as the default language). The Demo judges and assigns values according to the system language.
+       If the components that need to be modified are not only static components, the simple method is to save the currently used language to config (saved to Core in Demo) and judge and display it in the code.
+
+## API documents
+
+[Tencent Cloud IM Chat SDK document](https://comm.qq.com/im/doc/unity/en/api/readme.html)
 [Tencent Cloud IM Chat SDK website](https://cloud.tencent.com/document/product/269/54111)
 [Tencent Cloud IM Chat SDK Get Started](https://cloud.tencent.com/document/product/269/54106)
 
@@ -258,7 +291,7 @@ Emoticons are displayed in `OverlayPanel` in `Chat.cs` using `StickerPanel`. You
 
 Pass Config information before Init, including `sdkappid`, `userid` and `usersig`.
 
-```c#
+```csharp
    using com.tencent.imsdk.unity.uikit;
 
       Core.SetConfig(sdkappid, userid, usersig);
@@ -268,7 +301,7 @@ Pass Config information before Init, including `sdkappid`, `userid` and `usersig
 
 Use the Init method provided by UIKit to initialize the SDK, and the `AddRecvNewMsgCallback` and `SetConvEventCallback` callbacks will be automatically bound.
 
-```c#
+```csharp
    using com.tencent.imsdk.unity.uikit;
 
       Core.Init();
@@ -278,7 +311,7 @@ Use the Init method provided by UIKit to initialize the SDK, and the `AddRecvNew
 
 Set sticker package list through `SetStickerPackageList`.
 
-```c#
+```csharp
    using com.tencent.imsdk.unity.uikit;
 
       Core.SetStickerPackageList(Config.stickers);
@@ -288,7 +321,7 @@ Set sticker package list through `SetStickerPackageList`.
 
 Log in to the account through `Login`, and execute the bound callback function after the login is completed.
 
-```c#
+```csharp
    using com.tencent.imsdk.unity.uikit;
 
       Core.Login((params string[] args) => {
@@ -299,7 +332,7 @@ Log in to the account through `Login`, and execute the bound callback function a
 
 Add the message list of a session, merge it into the current session message dictionary after processing, and trigger the `OnMsgListChanged` event.
 
-```c#
+```csharp
    using com.tencent.imsdk.unity.uikit;
 
       Core.SetMessageList(currentConvID, newMsgList, isFinished);
@@ -309,7 +342,7 @@ Add the message list of a session, merge it into the current session message dic
 
 Set the currently selected session and fire the `OnCurrentConvChanged` event.
 
-```c#
+```csharp
    using com.tencent.imsdk.unity.uikit;
 
       Core.SetMessageList(convID, convType);
@@ -319,7 +352,7 @@ Set the currently selected session and fire the `OnCurrentConvChanged` event.
 
 Set the currently selected sticker group and trigger `OnCurrentStickerIndexChanged` event.
 
-```c#
+```csharp
    using com.tencent.imsdk.unity.uikit;
 
       Core.SetMessageList(stickerIndex);
@@ -329,7 +362,7 @@ Set the currently selected sticker group and trigger `OnCurrentStickerIndexChang
 
 Log out and clear data.
 
-```c#
+```csharp
    using com.tencent.imsdk.unity.uikit;
 
       Core.Logout((string[] parameters) => {
@@ -337,11 +370,11 @@ Log out and clear data.
       });
 ```
 
-## TencentIMSDK
+## TencentChatSDK
 
-[Unity TencentIMSDK](https://cloud.tencent.com/document/product/269/54106) Provides comprehensive instant communication capabilities based on the Unity platform. You can use `TencentIMSDK` to get other instant messaging related functions. For example, get user information through `TencentIMSDK`
+[Unity TencentIMSDK](https://cloud.tencent.com/document/product/269/54106) Provides comprehensive instant communication capabilities based on the Unity platform. You can use `TencentChatSDK` to get other chatting related functions. For example, get user information through `TencentChatSDK`
 
-```c#
+```csharp
 using com.tencent.imsdk.unity;
 
     FriendShipGetProfileListParam param = new FriendShipGetProfileListParam

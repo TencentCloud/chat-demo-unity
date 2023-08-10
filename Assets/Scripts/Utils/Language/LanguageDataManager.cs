@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
-
+using Com.Tencent.IM.Unity.UIKit;
 public enum Language{
     Chinese,
     English,
@@ -10,12 +10,24 @@ public enum Language{
 
 public enum LanguageTextName{
     Phone,
-    Captcha
+    Captcha,
+    Login,
+    Send,
+    GetCaptcha,
+    OpenChat,
+    World,
+    Channel,
+    Group,
+    Friend,
+    EnterText,
+    SearchFriend,
+    Logout,
+    Calloutchat
 }
 
 public class LanguageDataManager : Singleton<LanguageDataManager>
 {
-    internal Language currentLanguage = Language.English;
+    internal static Language currentLanguage = Language.English;
 
     private Dictionary<string,string> ChineseDictionary = new Dictionary<string,string>();
     private Dictionary<string,string> EnglishDictionary = new Dictionary<string,string>();
@@ -26,26 +38,24 @@ public class LanguageDataManager : Singleton<LanguageDataManager>
         // 加载语言资源
         LoadLanguageTxt(Language.Chinese);
         LoadLanguageTxt(Language.English);
-        Debug.Log("LanguageDataManager");
     }
 
     public void Init() { }
 
     /// 设置语言
-    public void SetCurrentLanguageValue(Language language)
+    public static void SetCurrentLanguageValue(Language language)
     {
 
         currentLanguage = language;
-
+        Core.setCurrentLanguage(language);
         //获取场景中所有LanguageUIText类型脚本;用于更新对应语言UI信息
         LanguageUIText[] languageUITexts = Resources.FindObjectsOfTypeAll<LanguageUIText>();
-        Debug.Log("SetCurrentLanguageValue:"+ languageUITexts.Length);
 
         for (int i = 0; i < languageUITexts.Length; i++)
         {            
 
             languageUITexts[i].SetLanguageTextName();
-            Debug.Log("languageUITexts:"+ languageUITexts[i].languageTextName);
+            // Debug.Log("languageUITexts:"+ languageUITexts[i].languageTextName);
         }        
 
     }
@@ -90,9 +100,6 @@ public class LanguageDataManager : Singleton<LanguageDataManager>
 
             }
 
-
-
-            Debug.Log(string.Format("key:{0},value:{1}", kv[0], kv[1]));
 
         }
 

@@ -37,7 +37,12 @@ namespace Com.Tencent.IM.Unity.UIKit.Example
       openChatObject.SetActive(false);
       infomation.SetActive(false);
       channelChanged(true,"FriendButton");
-      buttonText.GetComponent<Text>().text = "唤出聊天";
+      if(Core.currentLanguage == Language.Chinese){
+        buttonText.GetComponent<Text>().text = "唤出聊天";
+      }else{
+        buttonText.GetComponent<Text>().text = "Open Chats";
+      }
+      
     }
     private void CloseChat()
     {
@@ -48,7 +53,11 @@ namespace Com.Tencent.IM.Unity.UIKit.Example
     }
      private void HandleCloseConversation()
     {
-      buttonText.GetComponent<Text>().text = "唤出聊天";
+       if(Core.currentLanguage == Language.Chinese){
+        buttonText.GetComponent<Text>().text = "唤出聊天";
+      }else{
+        buttonText.GetComponent<Text>().text = "Open Chats";
+      }
       Core.CloseChat();
     }
 
@@ -132,7 +141,11 @@ namespace Com.Tencent.IM.Unity.UIKit.Example
       buttonText.GetComponent<Text>().text = actualText;
       // channel according to convID
       channelText.SetActive(true);
-      channelText.GetComponentInChildren<Text>().text = "好友";
+      if(Core.currentLanguage == Language.Chinese){
+        channelText.GetComponentInChildren<Text>().text = "好友";
+      }else if(Core.currentLanguage == Language.English){
+        channelText.GetComponentInChildren<Text>().text = "Friend";
+      }
     }
   }
 }

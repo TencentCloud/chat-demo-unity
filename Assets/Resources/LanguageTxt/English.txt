@@ -1,2 +1,18 @@
-Phone:Phone Number
+Phone:Phone No.
 Captcha:Captcha
+Login:Login
+Send:Send
+GetCaptcha:Get Captcha
+OpenChat:click here to shart chatting
+World:World
+Channel:Channel
+Group:Team
+Friend:Friends
+EnterText:Enter Text here...
+SearchFriend:Search friends
+Logout:Logout
+Silver:Silver
+Gold:Gold
+Platinum:Platinum
+Diamond:Diamond
+Calloutchat:Open Chats

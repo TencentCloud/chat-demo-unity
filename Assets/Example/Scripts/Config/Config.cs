@@ -14,6 +14,7 @@ namespace Com.Tencent.IM.Unity.UIKit.Example
     public static string communityId = "";
     public static string channelId = "";
     public static string groupId = "";
+    
 
     public static List<StickerPackage> stickers = new List<StickerPackage> {
       new StickerPackage {

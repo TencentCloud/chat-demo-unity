@@ -47,22 +47,42 @@ namespace Com.Tencent.Imsdk.Unity.UIKit {
             }
             if (m_CellSenderName != null)
             {
-                if(SenderName == "admin"){
-                m_CellSenderName.text = "系统";
-                }else if(SenderName == "groupTips"){
-                if(Core.currentConvID == Config.communityId){
-                    m_CellSenderName.text = "世界";
-                }else if(Core.currentConvID == Config.channelId){
-                    m_CellSenderName.text = "频道";
-                }else if(Core.currentConvID == Config.groupId){
-                    m_CellSenderName.text = "组队";
-                }else{
-                    m_CellSenderName.text = "好友";
+                if(Core.currentLanguage == Language.Chinese){
+                    if(SenderName == "admin"){
+                        m_CellSenderName.text = "系统";
+                    }else if(SenderName == "groupTips"){
+                        if(Core.currentConvID == Config.communityId){
+                            m_CellSenderName.text = "世界";
+                        }else if(Core.currentConvID == Config.channelId){
+                            m_CellSenderName.text = "频道";
+                        }else if(Core.currentConvID == Config.groupId){
+                            m_CellSenderName.text = "组队";
+                        }else{
+                            m_CellSenderName.text = "好友";
+                        }
+                    }else{
+                        m_CellSenderName.text = SenderName;
+                    }
+                }else if(Core.currentLanguage == Language.English){
+                    if(SenderName == "admin"){
+                        m_CellSenderName.text = "admin";
+                    }else if(SenderName == "groupTips"){
+                        if(Core.currentConvID == Config.communityId){
+                            m_CellSenderName.text = "World";
+                        }else if(Core.currentConvID == Config.channelId){
+                            m_CellSenderName.text = "Channel";
+                        }else if(Core.currentConvID == Config.groupId){
+                            m_CellSenderName.text = "Team";
+                        }else{
+                            m_CellSenderName.text = "Friends";
+                        }
+                    }else{
+                        m_CellSenderName.text = SenderName;
+                    }
                 }
                 
-                }else{
-                    m_CellSenderName.text = SenderName;
-                }
+                
+                
                 
             }
             if (m_CellImage != null && !string.IsNullOrEmpty(Url))
@@ -123,7 +143,20 @@ namespace Com.Tencent.Imsdk.Unity.UIKit {
                 m_CellTeerIcon.sprite = (Sprite)Resources.Load(iconName, typeof(Sprite));
             }
             if(m_CellTeerText != null){
-                m_CellTeerText.text = Teer;
+                if(Core.currentLanguage == Language.Chinese){
+                    m_CellTeerText.text = Teer;
+                }else if(Core.currentLanguage == Language.English){
+                    if(Teer == "白银"){
+                        m_CellTeerText.text = "Silver";
+                    }else if(Teer == "黄金"){
+                        m_CellTeerText.text = "Gold";
+                    }else if(Teer == "铂金"){
+                        m_CellTeerText.text = "Platinum";
+                    }else if(Teer == "钻石"){
+                        m_CellTeerText.text = "Diamond";
+                    }
+                }
+                
             }
         }
     }
