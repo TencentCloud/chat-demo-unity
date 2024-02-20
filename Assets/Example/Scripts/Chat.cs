@@ -135,7 +135,7 @@ namespace Com.Tencent.IM.Unity.UIKit.Example
       string text = (string)args[0].ToString();
       string actualText = text;
       if(text.Length > 10){
-        actualText = text.Substring(0,15);
+        actualText = text.Substring(0,10);
         actualText += "...";
       }
       buttonText.GetComponent<Text>().text = actualText;
